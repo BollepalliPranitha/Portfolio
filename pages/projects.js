@@ -181,18 +181,11 @@ function GithubRepo() {
                 loading ? "Loading..." : error !== null ? <p>{error}</p> : repos.length > 0 ?
                     repos.map((rep, i) => {
                         return (
-                            <div key={i} className="relative w-full h-[180px] bg-dark-200 flex flex-col items-start justify-start px-4 py-3 mt-2 rounded-md md:w-[300px]">
-                                <h2 className="w-full text-[20px] ">{rep.name}</h2>
-                                <p className=" w-full text-[15px] text-white-300 ">{rep.description && rep.description.length > 50 ? rep.description.slice(0, 80) + "..." : rep.description}</p>
+                            <div key={i} className="relative w-full h-[45px] bg-dark-200 flex flex-col items-start justify-start px-4 py-3 mt-2 rounded-md md:w-[300px]">
+                                <h2 className="w-full text-[15px] ">{rep.name}</h2>
+                                <p className=" w-full text-[5px] text-white-300 ">{rep.description && rep.description.length > 50 ? rep.description.slice(0, 80) + "..." : rep.description}</p>
                                 <br />
-                                <div className="ratings absolute bottom-4 w-full flex flex-row items-start justify-start">
-                                    <span className="mr-2 flex flex-row items-start justify-start">
-                                        <StarRatings title="star" count={rep.stargazers_count} />
-                                    </span>
-                                    <span className="mr-2 flex flex-row items-start justify-start">
-                                        <StarRatings title="fork" count={rep.forks} />
-                                    </span>
-                                </div>
+                                
 
                                 <a href={rep.html_url} target={"_blank"} className="absolute right-3 top-2 flex flex-row items-center">
                                     <small className="underline">View</small>

@@ -9,7 +9,7 @@ export default function Header({ children }) {
 
     const [resumeActive, setResumeActive] = useState(false)
     const [reposcount, setReposCount] = useState(0)
-    const [avatar, setAvatar] = useState("")
+    const [avatar, setAvatar] = useState("/images/avatar/avatar.png")
 
     const userName = usersInfo.github_username;
 
@@ -40,7 +40,7 @@ export default function Header({ children }) {
         let useravatar = JSON.parse(localStorage.getItem("github_avatar"))
 
         setReposCount(data)
-        setAvatar(useravatar)
+        setAvatar(avatar)
 
         return data
     }

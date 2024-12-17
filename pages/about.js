@@ -8,7 +8,7 @@ import userInfo from "../data/usersInfo.json"
 
 function About() {
     const [windowWidth, setWindowWidth] = useState(0)
-    const [avatar, setAvatar] = useState("")
+    const [avatar, setAvatar] = useState("images/avatar/avatar.png")
 
     useEffect(() => {
         setWindowWidth(window.innerWidth)
@@ -18,8 +18,16 @@ function About() {
     }, [windowWidth])
 
     useEffect(() => {
-        let useravatar = JSON.parse(localStorage.getItem("github_avatar"))
-        setAvatar(useravatar)
+        // Fetch the user avatar from localStorage
+        //const useravatar = JSON.parse(localStorage.getItem("github_avatar"))
+
+        //if (useravatar) {
+            // If avatar is found in localStorage, set it as the avatar
+            setAvatar("/images/avatar/avatar.png")
+        //} else {
+            // If no avatar in localStorage, fall back to default image
+          //  setAvatar("/images/avatar.png") // You can change this to the default image you want
+       // }
     }, [])
 
     return (

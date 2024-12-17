@@ -15,33 +15,43 @@ function Projects() {
 
     async function fetchRepos() {
         let res;
-        let url = `https://api.github.com/users/${userInfo.github_username}/repos`
+        let url = `https://api.github.com/users/${userInfo.github_username}/repos`;
+    
+        // Check if repos are already in localStorage
         if (localStorage.getItem("user_repos") === null) {
             try {
-                setLoading(true)
-                res = await fetch(url)
-                let data = await res.json()
-                setLoading(false)
+                setLoading(true);
+                res = await fetch(url);
+                let data = await res.json();
+                setLoading(false);
+    
                 if (data && data.length > 0) {
-                    localStorage.setItem("user_repo", JSON.stringify(data))
-                    setRepo(data)
-                    return
+                    // Sort repos by updated_at date in descending order (most recent first)
+                    data.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+    
+                    // Store the sorted repos in localStorage
+                    localStorage.setItem("user_repos", JSON.stringify(data));
+                    setRepo(data);
+                    return;
                 }
-                setLoading(false)
-                setError(`No github repos found.`)
+                setLoading(false);
+                setError(`No GitHub repos found.`);
+            } catch (err) {
+                console.error(`FAILED: ${err.message}`);
+                setLoading(false);
+                setError(`Failed fetching repo: ${err.message}`);
             }
-            catch (err) {
-                console.error(`FAILED: ${err.message}`)
-                setLoading(false)
-                setError(`Failed fetching repo: ${err.message}`)
-            }
+        } else {
+            // If repos are already in localStorage, retrieve and sort them
+            let userRepos = JSON.parse(localStorage.getItem("user_repos"));
+            
+            // Sort repos by updated_at date in descending order (most recent first)
+            userRepos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+    
+            setRepo(userRepos);
         }
-
-        let userReopos = JSON.parse(localStorage.getItem("user_repos"))
-
-        setRepo(userReopos)
     }
-
+    
     useEffect(() => {
 
         (async () => {
@@ -140,19 +150,12 @@ function GithubRepo({ repos }) {
                 repos.length > 0 ?
                     repos.slice(0, 3).map((rep, i) => {
                         return (
-                            <div data-aos="zoom-in" key={i} className="relative w-full h-[180px] bg-dark-200 flex flex-col items-start justify-start px-4 py-3 mt-2 rounded-md md:w-[300px] ">
-                                <h2 className="w-full text-[20px] ">{rep.name}</h2>
+                            <div data-aos="zoom-in" key={i} className="relative w-full h-[45px] bg-dark-200 flex flex-col items-start justify-start px-4 py-3 mt-2 rounded-md md:w-[300px] ">
+                                <h2 className="w-full text-[15px] text-white-30">{rep.name}</h2>
                                 <br />
-                                <p className=" w-full text-[15px] text-white-300 ">{rep.description && rep.description.length > 50 ? rep.description.slice(0, 60) + "...." : rep.description}</p>
+                                <p className=" w-full text-[5px] text-white-30 ">{rep.description && rep.description.length > 50 ? rep.description.slice(0, 60) + "...." : rep.description}</p>
                                 <br />
-                                <div className="ratings absolute bottom-4 w-full flex flex-row items-start justify-start">
-                                    <span className="mr-2 flex flex-row items-start justify-start">
-                                        <StarRatings title="star" count={rep.stargazers_count} />
-                                    </span>
-                                    <span className="mr-2 flex flex-row items-start justify-start">
-                                        <StarRatings title="fork" count={rep.forks} />
-                                    </span>
-                                </div>
+                               
 
                                 <a href={rep.html_url} target={"_blank"} className="absolute right-3 top-2 flex flex-row items-center">
                                     <small className="underline">View</small>

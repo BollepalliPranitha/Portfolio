@@ -11,7 +11,7 @@ function Quote() {
             <Container>
                 <div className="head mx-auto flex flex-col items-center justify-center text-center md:items-center md:justify-start md:flex-row md:px-0">
                     <h1 data-aos="fade-right" className="text-[35px] font-bold md:mr-[50px]">Favorite Quote</h1>
-                    <p data-aos="fade-left" className="text-[12px] text-white-200 ">My favorite motivational quote.</p>
+                    <p data-aos="fade-left" className="text-[12px] text-white-200 ">Success is not final, failure is not fatal: It is the courage to continue that counts.</p>
                 </div>
                 <div id="quote-cont" className='w-full h-auto mt-[100px] relative p-2 md:p-0'>
 
@@ -50,7 +50,7 @@ function StarRatings({ count = 1, size = 3 }) {
             {
                 Array(count).fill(count).map((i) => {
                     return (
-                        <FaStar key={i} className={`text-green-200 text-[${size}px] `} key={i} />
+                        <FaStar key={i} className={`text-green-200 text-[${size}px] `}  />
                     )
                 })
 
