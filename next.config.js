@@ -1,8 +1,6 @@
-
+const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    reactStrictMode: true,
-    env: {
-      NAME: process.env.NAME,
-    }
-}
+    basePath: isProd ? '/Portfolio' : '',
+    assetPrefix: isProd ? '/Portfolio' : '',
+};
