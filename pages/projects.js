@@ -81,7 +81,7 @@ function ProjectsCard() {
                         .imgCont{
                             width: 100%;
                             height: 190px;
-                            background-image: url(${list.imageUrl === "" || list.imageUrl === null ? "https://www.wallpapertip.com/wmimgs/136-1369543_laptop-coding.jpg" : list.imageUrl});
+                            background-image: url(${list.imageUrl === "" || list.imageUrl === null ? "image.png" : list.imageUrl});
                             background-size: cover;
                             background-repeat: no-repeat;
                             background-position: center;
